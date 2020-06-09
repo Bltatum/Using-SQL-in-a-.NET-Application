@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Roommates.Models;
 using Roommates.Repositories;
+using Roommates.Repository;
 
 namespace Roommates
 {
@@ -28,11 +29,11 @@ namespace Roommates
             }
 
             Console.WriteLine("----------------------------");
-            Console.WriteLine("Getting Room with Id 1");
+            //Console.WriteLine("Getting Room with Id 1");
 
-            Room singleRoom = roomRepo.GetById(1);
+            //Room singleRoom = roomRepo.GetById(1);
 
-            Console.WriteLine($"{singleRoom.Id} {singleRoom.Name} {singleRoom.MaxOccupancy}");
+            //Console.WriteLine($"{singleRoom.Id} {singleRoom.Name} {singleRoom.MaxOccupancy}");
             //adding bathroom
             //Room bathroom = new Room
             //{
@@ -56,8 +57,16 @@ namespace Roommates
 
             //Console.WriteLine($" bathrooms occupancy is {bathroom.Id}");
 
-            roomRepo.Delete(9);
-            roomRepo.GetAll();
+            //roomRepo.Delete(9);
+            //roomRepo.GetAll();
+            RoommateRepository roommateRepo = new RoommateRepository(CONNECTION_STRING);
+            List<Roommate> withRoom = roommateRepo.GetAllWithRoom(3);
+
+            foreach(Roommate rm in withRoom)
+            {
+                Console.WriteLine($"{rm.Firstname} is living in the {rm.Room.Name}");
+              
+            }
 
         }
     }
